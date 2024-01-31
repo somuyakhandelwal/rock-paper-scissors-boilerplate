@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background-image: url(./assets/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;    
+}
+
+#main-heading {
+    color: #5A25C0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 60px;
+    text-align: center;
+    margin-top: 70px;
+}
+#game-preview img {
+    height: 450px;    
+}
+
+#game-preview div img {
+    height: 50px;
+}
+
+#play-button-text{
+    color: white;
+    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+}
+
+#play-button {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-preview {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: 900px;
+}
+#game-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
