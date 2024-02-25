@@ -5,15 +5,11 @@ var computerScore = 0;
 
 // Function to make buttons dynamic
 document.addEventListener('click', (event) => {
-    if (event.target.id == "rock") {
-        setPlayerChoiceImage('./assets/rock-hand.png');
-    } else if (event.target.id == "paper") {
-        setPlayerChoiceImage('./assets/paper-hand.png');
-    } else if (event.target.id == "scissor") {
-        setPlayerChoiceImage('./assets/scissors-hand.png');
+    if (event.target.id === "rock" || event.target.id === "paper" || event.target.id === "scissors") {
+        setPlayerChoiceImage(`./assets/${event.target.id}-hand.png`);
+        displayRandomImage();
+        compareScore();
     }
-    displayRandomImage();
-    compareScore();
 });
 
 function getRandomNum(max) {
@@ -41,9 +37,12 @@ function compareScore() {
     let computerImageSrc = computerImage.firstElementChild.src;
     let playerImageSrc = playerChoice.firstElementChild.src;
 
-    if (playerScore == 5 || computerScore == 5) {
+    if (playerScore === 5 || computerScore === 5) {
         resetGame();
-    } else if (playerImageSrc === computerImageSrc) {
+        return; // Stop comparing scores if the game has ended
+    }
+
+    if (playerImageSrc === computerImageSrc) {
         console.log("It's a Draw");
     } else if (
         (playerImageSrc.includes('rock') && computerImageSrc.includes('scissors')) ||
@@ -51,13 +50,13 @@ function compareScore() {
         (playerImageSrc.includes('scissors') && computerImageSrc.includes('paper'))
     ) {
         playerScore++;
-        updateScore();
         popup(win);
     } else {
         computerScore++;
-        updateScore();
         popup(lose);
     }
+
+    updateScore(); // Move the updateScore() call here to ensure scores are updated after each comparison
 }
 
 // Function to update score
@@ -73,16 +72,29 @@ var win = document.getElementById("result-win");
 var lose = document.getElementById("result-lose");
 
 function popup(result) {
-    if (playerScore == 5 || computerScore == 5) {
+    if (playerScore === 5 || computerScore === 5) {
         result.style.display = "block";
+        showPlayAgainButton(); // Show play again button when the game ends
+        hideHandGestures(); // Hide hand gestures when the game ends
     }
+}
+
+// Function to show play again button
+function showPlayAgainButton() {
+    var playAgainButton = document.getElementById("play-again-btn");
+    document.getElementById("result-footer").style.display = "flex";
+
+}
+
+// Function to hide hand gestures
+function hideHandGestures() {
+    playerChoice.innerHTML = '';
+    computerImage.innerHTML = '';
 }
 
 // Function Reset Game
 function resetGame() {
-    if (playerScore === 5 || computerScore === 5) {
-        window.location.reload();
-    }
+    // No need for a separate resetGame function as the reload handles it
 }
 
 // Function to Play Again
